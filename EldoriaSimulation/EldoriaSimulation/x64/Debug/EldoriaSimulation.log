@@ -1,0 +1,7 @@
+﻿  main.cpp
+  SkillTreeManualSimulation.cpp
+D:\Github\EldoriaSimulation\EldoriaSimulation\EldoriaSimulation\SkillTreeManualSimulation.cpp(1,1): warning C4819: El archivo contiene un carácter que no se puede representar en la página de códigos actual (936). Guarde el archivo con formato Unicode para evitar la pérdida de datos
+  SkillTreeSimulation.cpp
+D:\Github\EldoriaSimulation\EldoriaSimulation\EldoriaSimulation\SkillTreeSimulation.cpp(1,1): warning C4819: El archivo contiene un carácter que no se puede representar en la página de códigos actual (936). Guarde el archivo con formato Unicode para evitar la pérdida de datos
+  Generando código...
+  EldoriaSimulation.vcxproj -> D:\Github\EldoriaSimulation\EldoriaSimulation\x64\Debug\EldoriaSimulation.exe
