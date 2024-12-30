@@ -128,12 +128,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="SkillTreeManualSimulation.cpp" />
-    <ClCompile Include="SkillTreeSimulation.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="SkillTreeManualSimulation.h" />
-    <ClInclude Include="SkillTreeSimulation.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
