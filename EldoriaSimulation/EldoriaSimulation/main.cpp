@@ -126,20 +126,22 @@ int main() {
 	int playerHP = 100;
 	int playerAttack = 10;
 	int playerSpeed = 5;
+	int playDenfense = 5;
 	int playerHealingPercentage = 0;
 	int enemyPoisonedRounds = 0;
 	bool playerPoisonAttack = false;
 	bool playerLifeSteal = false;
 	bool playerGuardAttackSpeed = false;
+	bool playerReduceEnemyAtack = false;
 
 	initializeMap(map);
 	setupMap(map);
 	map[playerX][playerY] = 'O';
 
 	printf("Choose your class:\n");
-	printf("1. Guard (战斗技能: 守卫, 治疗, 增加攻击力)\n");
-	printf("2. Scholar (学者: 治疗, 奥术视野)\n");
-	printf("3. Blackthorn (黑刺: 毒爆, 生命吸取)\n");
+	printf("1. Guardian (Defensa, Curación, Aumento de ataque)\n");
+	printf("2. Eruditos (Curación, Reducción de daño)\n");
+	printf("3. Espina Negra (Explosión de veneno, Robo de vida)\n");
 
 	int playerClass;
 	scanf_s("%d", &playerClass);
@@ -148,11 +150,11 @@ int main() {
 	switch (playerClass) {
 	case 1:
 		playerHealingPercentage = 20;
-		playerGuardAttackSpeed = true;
+		playerReduceEnemyAtack = true;
 		break;
 	case 2:
 		playerHealingPercentage = 40;
-		printf("奥术视野：你看到了敌人的战利品：金子、宝石、魔法药水。\n");
+		//printf("奥术视野：你看到了敌人的战利品：金子、宝石、魔法药水。\n");
 		break;
 	case 3:
 		playerPoisonAttack = true;
@@ -200,11 +202,13 @@ int main() {
 			if (fightChoice == 1) {
 				int enemyHP = 80;
 				int enemyAttack = 15;
+				int enemyDenfense = 8;
 				int turnCount = 0;
 				int healCooldown = 4; // Initial cooldown for healing
 				int attackSpeedCooldown = 4; // Initial cooldown for attack speed
 				int poisonCooldown = 4; // Initial cooldown for poison
 				int lifeStealCooldown = 4; // Initial cooldown for life steal
+				int enemyAtackReduceCooldown = 4; // Initial cooldown for life steal
 
 				printf("Enemy Stats: HP: 80, Resistencia Física: 5, Resistencia Mágica: 15, Ataque: 15\n");
 
@@ -214,6 +218,8 @@ int main() {
 					attackSpeedCooldown++;
 					poisonCooldown++;
 					lifeStealCooldown++;
+					enemyAtackReduceCooldown++;
+
 
 					printf("Turn %d\n", turnCount);
 					printf("Battle in progress...\n");
@@ -233,6 +239,9 @@ int main() {
 					else if (playerClass == 2) { // Scholar
 						if (healCooldown >= 4) {
 							printf("1. Heal(40%%)\n");
+						}
+						if (enemyAtackReduceCooldown >= 4) {
+							printf("2. decreased enemy attack\n");
 						}
 					}
 					else if (playerClass == 3) { // Blackthorn
@@ -283,6 +292,16 @@ int main() {
 								printf("Increase attack is still on cooldown.\n");
 							}
 						}
+						else if (playerClass == 2) { // Blackthorn Life Steal
+							if (enemyAtackReduceCooldown >= 4) {
+								enemyAttack -= 3;
+								printf("The enemy's attack power has decreased, and the current attack power of the enemy is: %d\n", enemyAttack);
+								enemyAtackReduceCooldown = 0; // Reset life steal cooldown
+							}
+							else {
+								printf("Life Steal is still on cooldown.\n");
+							}
+						}
 						else if (playerClass == 3) { // Blackthorn Life Steal
 							if (lifeStealCooldown >= 4) {
 								playerLifeSteal = true;
@@ -303,7 +322,7 @@ int main() {
 					}
 
 					// Enemy attacks
-					playerHP -= enemyAttack;
+					playerHP -= (enemyAttack-playDenfense);
 					if (playerHP <= 0) {
 						printf("You have been defeated.\n");
 						gameRunning = false;
@@ -311,7 +330,7 @@ int main() {
 					}
 
 					// Player attacks
-					enemyHP -= playerAttack;
+					enemyHP -= (playerAttack-enemyDenfense);
 					if (playerPoisonAttack) {
 						enemyPoisonedRounds = 3; // Poison attack
 					}
