@@ -26,9 +26,6 @@ void setupMap(char map[MAP_SIZE][MAP_SIZE]) {
 	}
 
 	// Set up chests and enemies
-	map[1][3] = 'c';
-	//map[1][4] = 'c';
-	//map[1][5] = 'c';
 
 	map[3][3] = 'c';
 	map[2][3] = 'X';
